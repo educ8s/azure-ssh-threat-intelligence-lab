@@ -7,6 +7,22 @@
 
 ---
 
+# Phase 0 — Safety Guardrails
+
+## Milestone 0: Account Security and Cost Control
+
+- [ ] Enable MFA on the Azure account.
+- [ ] Understand the subscription, billing and the free account credit.
+- [ ] Create a budget with alerts at 50%, 80% and 100%.
+- [ ] Define the tag plan: `Project`, `Owner`, `Environment`, `CostCenter`, `AutoDelete`.
+- [ ] Choose the Azure region and confirm `Standard_B1s` / `Standard_B2s` availability there.
+- [ ] Use the Azure Pricing Calculator to estimate VM, disk, public IP and log ingestion costs.
+- [ ] Find your current public IP and decide on `admin_source_ips` (your IP as `/32`, and/or your Greek ISP prefixes).
+
+**Completion criteria:** The account is protected with MFA, spending is capped by alerts and you know roughly what the lab costs per month.
+
+---
+
 # Phase 1 — Infrastructure Fundamentals
 
 ## Milestone 1: Azure Networking
@@ -19,8 +35,9 @@
 - [ ] Understand public vs. private IP addresses.
 - [ ] Learn TCP, UDP, ports and network protocols.
 - [ ] Create a Network Security Group (NSG).
-- [ ] Configure inbound security rules.
-- [ ] Configure outbound security rules.
+- [ ] Configure inbound security rules (22 from Any; 2222 from `admin_source_ips` only).
+- [ ] Understand why NSGs can't filter by country, only by IP ranges and service tags.
+- [ ] Configure outbound security rules (allow `AzureMonitor`, `AzureActiveDirectory`, 80/443; deny 22, 23, 25, 445, 3389; deny all else).
 - [ ] Understand NSG priorities and default rules.
 - [ ] Test network connectivity and firewall behavior.
 
@@ -34,6 +51,9 @@
 - [ ] Configure SSH key authentication.
 - [ ] Assign a public IP address.
 - [ ] Connect to the VM from your local computer.
+- [ ] Move the real `sshd` to port 2222 (on Ubuntu 24.04, SSH uses `ssh.socket`: change the port there or disable socket activation, not only `sshd_config`).
+- [ ] Confirm you can log in on port 2222 **before** closing your session on port 22.
+- [ ] Disable password authentication and root login in `sshd_config`.
 - [ ] Update Ubuntu packages.
 - [ ] Install basic administration tools.
 - [ ] Learn Linux users and groups.
@@ -67,6 +87,7 @@
 
 - [ ] Understand Infrastructure as Code (IaC).
 - [ ] Install Terraform.
+- [ ] Create `.gitignore` for state, `.tfvars` and `.terraform/` **before** the first `terraform apply`.
 - [ ] Learn Terraform providers and resources.
 - [ ] Understand variables, outputs and data sources.
 - [ ] Understand Terraform state.
@@ -79,9 +100,9 @@
 - [ ] Recreate the NSG and security rules.
 - [ ] Recreate the public IP, NIC and VM.
 - [ ] Organize configuration into separate `.tf` files.
-- [ ] Use variables and `.tfvars` files.
+- [ ] Use variables and `.tfvars` files (including `admin_source_ips`).
+- [ ] Apply the tag plan to every resource with a shared `tags` block.
 - [ ] Learn `terraform fmt` and `terraform validate`.
-- [ ] Configure `.gitignore` to exclude sensitive files and state.
 - [ ] Understand safe state management.
 
 **Completion criteria:** Deploy and destroy the Azure infrastructure using Terraform.
@@ -124,6 +145,20 @@
 
 **Completion criteria:** Operate a Cowrie honeypot and understand the events it records.
 
+## Milestone 6.5: Decoy Data (Honeytokens)
+
+- [ ] Understand deception, honeytokens and canary tokens.
+- [ ] Customize Cowrie's fake filesystem so it looks like a real, used server.
+- [ ] Plant a believable `.bash_history`.
+- [ ] Plant fake config files with fake credentials (e.g. `/var/www/.env`, `config.php`).
+- [ ] Plant fake SSH private keys in `/root/.ssh/`.
+- [ ] Create fake AWS keys with Canarytokens.org and plant them.
+- [ ] Use unique values per decoy so each one can be traced.
+- [ ] Never use real credentials of any kind.
+- [ ] Verify decoy file access appears in the Cowrie logs.
+
+**Completion criteria:** Attackers who explore the fake system find believable decoys, and any decoy that is read or used can be detected.
+
 ---
 
 # Phase 3 — Monitoring and SIEM
@@ -132,7 +167,9 @@
 
 - [ ] Understand Azure Monitor.
 - [ ] Understand Log Analytics Workspaces.
+- [ ] Check current Log Analytics and Sentinel pricing and any free trial.
 - [ ] Create a Log Analytics Workspace.
+- [ ] Set log retention to match your budget.
 - [ ] Understand Azure Monitor Agent (AMA).
 - [ ] Install AMA on the VM.
 - [ ] Understand Data Collection Rules (DCR).
@@ -176,6 +213,8 @@
 - [ ] Create a brute-force detection rule.
 - [ ] Create a suspicious login detection rule.
 - [ ] Create a suspicious command execution detection rule.
+- [ ] Create a decoy access detection rule (attacker reads a honeytoken file).
+- [ ] Send Canarytokens alerts to your email (optionally into Sentinel).
 - [ ] Configure incident generation.
 - [ ] Investigate generated incidents.
 - [ ] Understand entities and investigation graphs.
@@ -230,7 +269,9 @@
 
 ## Milestone 12: Complete the GitHub Portfolio
 
-- [ ] Organize the GitHub repository.
+- [ ] Organize the GitHub repository (`terraform/`, `docker/`, `cowrie/`, `kql/`, `sentinel/`, `docs/`).
+- [ ] Keep milestone notes in `docs/`.
+- [ ] Add a repository description and topics on GitHub.
 - [ ] Write a comprehensive README.
 - [ ] Document the project objectives.
 - [ ] Create an architecture diagram.
@@ -286,6 +327,6 @@ By completing these milestones, you will have:
 - Security detection and incident investigation experience.
 - A documented cybersecurity portfolio project.
 
-**First task: Complete Milestone 1 — Azure Networking.**
+**First task: Complete Milestone 0 — Account Security and Cost Control.**
 
-Learn the fundamentals, build the network manually in Azure, test it and document what you learned before moving on to the VM.
+Then move to Milestone 1: learn the fundamentals, build the network manually in Azure, test it and document what you learned before moving on to the VM.
