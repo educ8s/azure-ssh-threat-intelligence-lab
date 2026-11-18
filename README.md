@@ -13,12 +13,12 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 
 ## Progress
 
-**Overall:** `▓░░░░░░░░░░░░░░░░░░░` **3%** (6 of 191 tasks) · last updated 18 Nov 2026
+**Overall:** `▓░░░░░░░░░░░░░░░░░░░` **4%** (7 of 191 tasks) · last updated 18 Nov 2026
 
 | Phase | Milestone | Progress | Status |
 |---|---|---|---|
-| 0. Safety guardrails | M0 Account security & cost control | `▓▓▓▓▓▓▓▓▓░` 86% | 🟡 In progress |
-| 1. Infrastructure | M1 Azure networking | `░░░░░░░░░░` 0% | ⬜ Next |
+| 0. Safety guardrails | M0 Account security & cost control | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| 1. Infrastructure | M1 Azure networking | `░░░░░░░░░░` 0% | 🟡 In progress |
 | | M2 Ubuntu VM deployment | `░░░░░░░░░░` 0% | ⬜ |
 | | M3 Linux & network administration | `░░░░░░░░░░` 0% | ⬜ |
 | 2. Automation & honeypot | M4 Terraform | `░░░░░░░░░░` 0% | ⬜ |
@@ -74,10 +74,33 @@ Internet (bots / attackers)
 ## Security design
 
 - **Identity:** MFA on the Azure account (also required by Azure for CLI and IaC tools); SSH keys only for admin access
-- **Inbound:** port 22 open as bait; port 2222 limited to my admin IPs
+- **Inbound:** port 22 open as bait; port 2222 limited to my current admin IP (see below)
 - **Outbound:** default-deny NSG, so the VM can't be used to attack others (only Azure Monitor, Entra ID and HTTP/S for updates allowed)
 - **Isolation:** Cowrie runs in Docker as non-root; attacker commands never touch the real system
 - **Data:** no real secrets on the VM; decoy credentials are fake and traceable
+
+### Admin access with a dynamic IP
+
+Azure NSGs can't filter by country, only by IP ranges and service tags. My home connection has a dynamic IP, so:
+
+- Port 2222 allows **only my current public IP as a `/32`**, held in the Terraform variable `admin_source_ips`
+- If my IP changes, I update the rule (portal, Azure CLI or `terraform apply`). It takes under a minute, and I can never be locked out, because the Azure portal doesn't depend on my IP
+- **Key-only SSH** on port 2222: `PasswordAuthentication no`, `PermitRootLogin no`
+- Optional second layer on the VM: `fail2ban`
+
+```bash
+# From my own computer (not Cloud Shell, which would return Azure's IP)
+az network nsg rule update -g rg-honeypot-lab --nsg-name nsg-honeypot \
+  -n Allow-Admin-SSH-2222 --source-address-prefixes "$(curl -s ifconfig.me)/32"
+```
+
+### Keeping my IP out of the repo
+
+My home IP is personal data and the only address allowed to reach real SSH, so it's never committed:
+
+- The real value lives in `terraform.tfvars`, which is in `.gitignore`
+- The repo has `terraform.tfvars.example` with a documentation placeholder (`203.0.113.10/32`)
+- Home IPs are blurred in screenshots
 
 ---
 
@@ -109,4 +132,4 @@ Microsoft Azure · Terraform (azurerm) · Ubuntu 24.04 · Docker · Cowrie · Az
 
 ## Repository safety
 
-No secrets, keys, `.tfvars` or Terraform state are committed. The honeypot only observes; it never attacks back.
+No secrets, keys, personal IP addresses, `.tfvars` or Terraform state are committed (`.gitignore` covers `*.tfvars`, `*.tfstate*` and `.terraform/`). The honeypot only observes; it never attacks back.
