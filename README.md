@@ -48,26 +48,7 @@ A portfolio project for my move into cybersecurity (target role: **SOC Analyst**
 
 ## Architecture
 
-```
-Internet (bots / attackers)
-        |
-        |  TCP 22 (bait)                  Admin (me)
-        v                                     |  TCP 2222, admin IPs only, SSH key
-  [ Public IP ] --> [ NSG ] --> [ NIC ] <-----+
-                                  |
-                       Subnet 10.0.1.0/24  (VNet 10.0.0.0/16)
-                                  |
-                 [ Ubuntu 24.04 VM, Standard_B2ats_v2 ]
-                   - Docker + Cowrie on port 22 (fake SSH)
-                   - Real sshd on port 2222
-                   - Azure Monitor Agent
-                                  |
-                 Data Collection Rule (Cowrie JSON + Syslog)
-                                  v
-                     [ Log Analytics Workspace ]
-                                  v
-                     [ Microsoft Sentinel ]  ->  KQL, analytics rules, incidents
-```
+![Architecture](diagram.png)
 
 ---
 
