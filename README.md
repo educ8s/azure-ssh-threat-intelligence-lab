@@ -13,13 +13,13 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 
 ## Progress
 
-**Overall:** `▓░░░░░░░░░░░░░░░░░░░` **4%** (7 of 191 tasks) · last updated 18 Nov 2026
+**Overall:** `▓▓▓░░░░░░░░░░░░░░░░░` **15%** (18 of 122 tasks) · last updated 19 Nov 2026
 
 | Phase | Milestone | Progress | Status |
 |---|---|---|---|
 | 0. Safety guardrails | M0 Account security & cost control | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
-| 1. Infrastructure | M1 Azure networking | `░░░░░░░░░░` 0% | 🟡 In progress |
-| | M2 Ubuntu VM deployment | `░░░░░░░░░░` 0% | ⬜ |
+| 1. Infrastructure | M1 Azure networking | `▓▓▓▓▓▓░░░░` 63% | 🟡 In progress |
+| | M2 Ubuntu VM deployment | `▓▓▓▓▓▓░░░░` 64% | 🟡 In progress |
 | | M3 Linux & network administration | `░░░░░░░░░░` 0% | ⬜ |
 | 2. Automation & honeypot | M4 Terraform | `░░░░░░░░░░` 0% | ⬜ |
 | | M5 Docker fundamentals | `░░░░░░░░░░` 0% | ⬜ |
@@ -90,7 +90,8 @@ My home IP is personal data and the only address allowed to reach real SSH, so i
 | | |
 |---|---|
 | Region | East US |
-| VM size | `Standard_B2ats_v2` (B1s/B2s were blocked on the new subscription) |
+| VM size | `Standard_B2ats_v2` for the run (B1s/B2s were blocked on the new subscription) |
+| Temporary build VM | `Standard_D2als_v6` (~$0.08/h, stopped when not in use) while the Basv2 vCPU quota request (0 → 4) is pending |
 | Infrastructure | **~$12.25/month** (24/7) |
 | Planned run | 1 month of data collection, then `terraform destroy` |
 | Expected total | **~$12–22** |
