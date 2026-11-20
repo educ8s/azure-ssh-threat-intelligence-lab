@@ -13,14 +13,14 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 
 ## Progress
 
-**Overall:** `▓▓▓░░░░░░░░░░░░░░░░░` **15%** (18 of 122 tasks) · last updated 19 Nov 2026
+**Overall:** `▓▓▓▓░░░░░░░░░░░░░░░░` **20%** (25 of 122 tasks) · last updated 20 Nov 2026
 
 | Phase | Milestone | Progress | Status |
 |---|---|---|---|
 | 0. Safety guardrails | M0 Account security & cost control | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
-| 1. Infrastructure | M1 Azure networking | `▓▓▓▓▓▓░░░░` 63% | 🟡 In progress |
-| | M2 Ubuntu VM deployment | `▓▓▓▓▓▓░░░░` 64% | 🟡 In progress |
-| | M3 Linux & network administration | `░░░░░░░░░░` 0% | ⬜ |
+| 1. Infrastructure | M1 Azure networking | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| | M2 Ubuntu VM deployment | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| | M3 Linux & network administration | `░░░░░░░░░░` 0% | 🟡 Next |
 | 2. Automation & honeypot | M4 Terraform | `░░░░░░░░░░` 0% | ⬜ |
 | | M5 Docker fundamentals | `░░░░░░░░░░` 0% | ⬜ |
 | | M6 Cowrie SSH honeypot | `░░░░░░░░░░` 0% | ⬜ |
@@ -111,6 +111,7 @@ Microsoft Azure · Terraform (azurerm) · Ubuntu 24.04 · Docker · Cowrie · Az
 - [`tasks.md`](tasks.md): learning roadmap
 - [`docs/00-account-setup.md`](docs/00-account-setup.md): Milestone 0 notes
 - [`docs/01-cost-estimate.md`](docs/01-cost-estimate.md): cost estimate
+- [`docs/02-networking.md`](docs/02-networking.md): Milestones 1–2, network, NSG rules, VM and firewall tests
 
 ## Repository safety
 
