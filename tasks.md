@@ -11,13 +11,12 @@
 
 ## Milestone 0: Account Security and Cost Control
 
-- [ ] Enable MFA on the Azure account.
-- [ ] Understand the subscription, billing and the free account credit.
-- [ ] Create a budget with alerts at 50%, 80% and 100%.
-- [ ] Define the tag plan: `Project`, `Owner`, `Environment`, `CostCenter`, `AutoDelete`.
-- [ ] Choose the Azure region and confirm `Standard_B1s` / `Standard_B2s` availability there.
-- [ ] Use the Azure Pricing Calculator to estimate VM, disk, public IP and log ingestion costs.
-- [ ] Find your current public IP and decide on `admin_source_ips` (your IP as `/32`, and/or your Greek ISP prefixes).
+- [x] Enable MFA on the Azure account.
+- [x] Create a budget with alerts at 50%, 80% and 100%.
+- [x] Define the tag plan: `Project`, `Owner`, `Environment`, `CostCenter`, `AutoDelete`.
+- [x] Choose the Azure region and confirm `Standard_B1s` / `Standard_B2s` availability there.
+- [x] Use the Azure Pricing Calculator to estimate VM, disk, public IP and log ingestion costs.
+- [x] Find your current public IP and decide on `admin_source_ips` (your IP as `/32`, and/or your Greek ISP prefixes).
 
 **Completion criteria:** The account is protected with MFA, spending is capped by alerts and you know roughly what the lab costs per month.
 
@@ -27,53 +26,36 @@
 
 ## Milestone 1: Azure Networking
 
-- [ ] Create an Azure account and understand the subscription structure.
-- [ ] Create a Resource Group (`rg-honeypot-lab`).
-- [ ] Create a Virtual Network (`10.0.0.0/16`).
-- [ ] Create a subnet (`10.0.1.0/24`).
-- [ ] Understand IPv4 addressing and CIDR notation.
-- [ ] Understand public vs. private IP addresses.
-- [ ] Learn TCP, UDP, ports and network protocols.
-- [ ] Create a Network Security Group (NSG).
-- [ ] Configure inbound security rules (22 from Any; 2222 from `admin_source_ips` only).
-- [ ] Understand why NSGs can't filter by country, only by IP ranges and service tags.
-- [ ] Configure outbound security rules (allow `AzureMonitor`, `AzureActiveDirectory`, 80/443; deny 22, 23, 25, 445, 3389; deny all else).
-- [ ] Understand NSG priorities and default rules.
-- [ ] Test network connectivity and firewall behavior.
+- [x] Create an Azure account and understand the subscription structure.
+- [x] Create a Resource Group (`rg-honeypot-lab`).
+- [x] Create a Virtual Network (`10.0.0.0/16`).
+- [x] Create a subnet (`10.0.1.0/24`).
+- [x] Create a Network Security Group (NSG).
+- [x] Configure inbound security rules (2222 from `admin_source_ips` only; the 22-from-Any bait rule is added in Milestone 6 when Cowrie is running).
+- [x] Configure outbound security rules (allow `AzureMonitor`, `AzureActiveDirectory`, 80/443; deny 22, 23, 25, 445, 3389; deny all else).
+- [x] Test network connectivity and firewall behavior.
 
 **Completion criteria:** Understand how network traffic reaches an Azure VM and how an NSG filters that traffic.
 
 ## Milestone 2: Ubuntu VM Deployment
 
-- [ ] Deploy Ubuntu Server 24.04 LTS.
-- [ ] Select an appropriate VM size (e.g. Standard_B1s, subject to regional availability).
-- [ ] Create an SSH key pair.
-- [ ] Configure SSH key authentication.
-- [ ] Assign a public IP address.
-- [ ] Connect to the VM from your local computer.
-- [ ] Move the real `sshd` to port 2222 (on Ubuntu 24.04, SSH uses `ssh.socket`: change the port there or disable socket activation, not only `sshd_config`).
-- [ ] Confirm you can log in on port 2222 **before** closing your session on port 22.
-- [ ] Disable password authentication and root login in `sshd_config`.
-- [ ] Update Ubuntu packages.
-- [ ] Install basic administration tools.
-- [ ] Learn Linux users and groups.
-- [ ] Learn file permissions.
-- [ ] Learn processes and services.
-- [ ] Understand systemd.
+- [x] Deploy Ubuntu Server 24.04 LTS.
+- [x] Select an appropriate VM size (e.g. Standard_B1s, subject to regional availability).
+- [x] Create an SSH key pair.
+- [x] Configure SSH key authentication.
+- [x] Assign a public IP address.
+- [x] Connect to the VM from your local computer.
+- [x] Move the real `sshd` to port 2222 (on Ubuntu 24.04, SSH uses `ssh.socket`: change the port there or disable socket activation, not only `sshd_config`).
+- [x] Confirm you can log in on port 2222 **before** closing your session on port 22.
+- [x] Disable password authentication and root login in `sshd_config`.
+- [x] Update Ubuntu packages.
+- [x] Install basic administration tools.
 
 **Completion criteria:** Successfully administer your Azure VM remotely using SSH keys.
 
 ## Milestone 3: Linux and Network Administration
 
-- [ ] Learn Linux directory navigation and file management.
-- [ ] Practice `ls`, `cd`, `find`, `grep`, `cat` and `less`.
-- [ ] Learn `chmod`, `chown` and `sudo`.
-- [ ] Understand `systemctl` and `journalctl`.
 - [ ] Inspect authentication logs.
-- [ ] Learn SSH server configuration.
-- [ ] Understand listening ports using `ss`.
-- [ ] Learn basic network commands: `ip`, `ping`, `curl` and `nc`.
-- [ ] Learn basic packet inspection using `tcpdump`.
 - [ ] Configure and test firewall rules.
 - [ ] Troubleshoot deliberately broken network configurations.
 
@@ -85,16 +67,8 @@
 
 ## Milestone 4: Terraform
 
-- [ ] Understand Infrastructure as Code (IaC).
 - [ ] Install Terraform.
 - [ ] Create `.gitignore` for state, `.tfvars` and `.terraform/` **before** the first `terraform apply`.
-- [ ] Learn Terraform providers and resources.
-- [ ] Understand variables, outputs and data sources.
-- [ ] Understand Terraform state.
-- [ ] Learn `terraform init`.
-- [ ] Learn `terraform plan`.
-- [ ] Learn `terraform apply`.
-- [ ] Learn `terraform destroy`.
 - [ ] Recreate the Resource Group using Terraform.
 - [ ] Recreate the VNet and subnet.
 - [ ] Recreate the NSG and security rules.
@@ -102,52 +76,35 @@
 - [ ] Organize configuration into separate `.tf` files.
 - [ ] Use variables and `.tfvars` files (including `admin_source_ips`).
 - [ ] Apply the tag plan to every resource with a shared `tags` block.
-- [ ] Learn `terraform fmt` and `terraform validate`.
-- [ ] Understand safe state management.
 
 **Completion criteria:** Deploy and destroy the Azure infrastructure using Terraform.
 
 ## Milestone 5: Docker Fundamentals
 
-- [ ] Understand containers and virtualization.
 - [ ] Install Docker.
-- [ ] Learn Docker images and containers.
 - [ ] Run your first container.
-- [ ] Understand Dockerfiles.
 - [ ] Create a custom Dockerfile.
-- [ ] Learn container port mapping.
-- [ ] Understand Docker volumes and persistent storage.
-- [ ] Learn Docker networking.
 - [ ] Use Docker Compose.
 - [ ] Inspect container logs.
 - [ ] Run containers as non-root users.
-- [ ] Learn container capabilities and resource limits.
-- [ ] Practice hardening a container.
+- [ ] Harden the Cowrie container (non-root, read-only where possible, resource limits).
 
 **Completion criteria:** Build, run, inspect and secure your own Docker container.
 
 ## Milestone 6: Cowrie SSH Honeypot
 
-- [ ] Understand what honeypots are.
-- [ ] Learn the difference between low-interaction and high-interaction honeypots.
-- [ ] Understand how Cowrie works.
 - [ ] Deploy Cowrie using Docker.
 - [ ] Configure the fake SSH environment.
-- [ ] Understand Cowrie authentication events.
 - [ ] Connect to the honeypot using an SSH client.
 - [ ] Generate test login attempts.
 - [ ] Execute commands in the fake shell.
 - [ ] Inspect Cowrie JSON logs.
-- [ ] Understand session recordings.
-- [ ] Understand how Cowrie handles downloaded files.
 - [ ] Customize the fake filesystem.
-- [ ] Distinguish authentication attempts from successful fake logins and command execution.
 
 **Completion criteria:** Operate a Cowrie honeypot and understand the events it records.
 
 ## Milestone 6.5: Decoy Data (Honeytokens)
 
-- [ ] Understand deception, honeytokens and canary tokens.
 - [ ] Customize Cowrie's fake filesystem so it looks like a real, used server.
 - [ ] Plant a believable `.bash_history`.
 - [ ] Plant fake config files with fake credentials (e.g. `/var/www/.env`, `config.php`).
@@ -165,34 +122,19 @@
 
 ## Milestone 7: Azure Monitor and Log Analytics
 
-- [ ] Understand Azure Monitor.
-- [ ] Understand Log Analytics Workspaces.
 - [ ] Check current Log Analytics and Sentinel pricing and any free trial.
 - [ ] Create a Log Analytics Workspace.
 - [ ] Set log retention to match your budget.
-- [ ] Understand Azure Monitor Agent (AMA).
 - [ ] Install AMA on the VM.
-- [ ] Understand Data Collection Rules (DCR).
 - [ ] Configure a DCR.
-- [ ] Understand Syslog and custom log collection.
 - [ ] Collect Linux system logs.
 - [ ] Configure Cowrie log ingestion.
 - [ ] Verify that logs arrive in Log Analytics.
-- [ ] Understand log retention and ingestion costs.
 
 **Completion criteria:** Retrieve real Linux and honeypot events from Log Analytics.
 
 ## Milestone 8: Kusto Query Language (KQL)
 
-- [ ] Understand what KQL is.
-- [ ] Learn the `where` operator.
-- [ ] Learn the `project` operator.
-- [ ] Learn the `summarize` operator.
-- [ ] Learn `count` and `sort by`.
-- [ ] Learn `extend` and `distinct`.
-- [ ] Learn `bin()` for time grouping.
-- [ ] Learn `parse_json()` for structured logs.
-- [ ] Understand joins.
 - [ ] Query failed SSH authentication attempts.
 - [ ] Identify the most active source IP addresses.
 - [ ] Identify frequently attempted usernames.
@@ -204,12 +146,7 @@
 
 ## Milestone 9: Microsoft Sentinel
 
-- [ ] Understand what a SIEM is.
-- [ ] Understand Microsoft Sentinel architecture.
 - [ ] Connect Sentinel to your Log Analytics Workspace.
-- [ ] Understand data connectors.
-- [ ] Learn analytics rules.
-- [ ] Understand alerts versus incidents.
 - [ ] Create a brute-force detection rule.
 - [ ] Create a suspicious login detection rule.
 - [ ] Create a suspicious command execution detection rule.
@@ -217,7 +154,6 @@
 - [ ] Send Canarytokens alerts to your email (optionally into Sentinel).
 - [ ] Configure incident generation.
 - [ ] Investigate generated incidents.
-- [ ] Understand entities and investigation graphs.
 - [ ] Create a Sentinel workbook.
 - [ ] Visualize attacker IPs and activity.
 
@@ -229,15 +165,10 @@
 
 ## Milestone 10: Threat Detection and MITRE ATT&CK
 
-- [ ] Understand Indicators of Compromise (IoCs).
-- [ ] Understand threat intelligence.
-- [ ] Learn brute-force attack techniques.
 - [ ] Identify suspicious usernames and passwords.
 - [ ] Detect fake successful SSH logins.
 - [ ] Identify suspicious commands.
 - [ ] Investigate `wget` and `curl` activity.
-- [ ] Understand file download behavior.
-- [ ] Learn MITRE ATT&CK.
 - [ ] Map observed behavior to relevant ATT&CK techniques.
 - [ ] Create at least three meaningful detection rules.
 - [ ] Test detections using controlled honeypot activity.
