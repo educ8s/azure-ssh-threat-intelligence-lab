@@ -13,14 +13,14 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 
 ## Progress
 
-**Overall:** `▓░░░░░░░░░░░░░░░░░░░` **4%** (7 of 191 tasks) · last updated 18 Nov 2026
+**Overall:** `▓▓▓▓░░░░░░░░░░░░░░░░` **20%** (25 of 122 tasks) · last updated 20 Nov 2026
 
 | Phase | Milestone | Progress | Status |
 |---|---|---|---|
 | 0. Safety guardrails | M0 Account security & cost control | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
-| 1. Infrastructure | M1 Azure networking | `░░░░░░░░░░` 0% | 🟡 In progress |
-| | M2 Ubuntu VM deployment | `░░░░░░░░░░` 0% | ⬜ |
-| | M3 Linux & network administration | `░░░░░░░░░░` 0% | ⬜ |
+| 1. Infrastructure | M1 Azure networking | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| | M2 Ubuntu VM deployment | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| | M3 Linux & network administration | `░░░░░░░░░░` 0% | 🟡 Next |
 | 2. Automation & honeypot | M4 Terraform | `░░░░░░░░░░` 0% | ⬜ |
 | | M5 Docker fundamentals | `░░░░░░░░░░` 0% | ⬜ |
 | | M6 Cowrie SSH honeypot | `░░░░░░░░░░` 0% | ⬜ |
@@ -48,26 +48,7 @@ A portfolio project for my move into cybersecurity (target role: **SOC Analyst**
 
 ## Architecture
 
-```
-Internet (bots / attackers)
-        |
-        |  TCP 22 (bait)                  Admin (me)
-        v                                     |  TCP 2222, admin IPs only, SSH key
-  [ Public IP ] --> [ NSG ] --> [ NIC ] <-----+
-                                  |
-                       Subnet 10.0.1.0/24  (VNet 10.0.0.0/16)
-                                  |
-                 [ Ubuntu 24.04 VM, Standard_B2ats_v2 ]
-                   - Docker + Cowrie on port 22 (fake SSH)
-                   - Real sshd on port 2222
-                   - Azure Monitor Agent
-                                  |
-                 Data Collection Rule (Cowrie JSON + Syslog)
-                                  v
-                     [ Log Analytics Workspace ]
-                                  v
-                     [ Microsoft Sentinel ]  ->  KQL, analytics rules, incidents
-```
+![Architecture](diagram.png)
 
 ---
 
@@ -109,7 +90,8 @@ My home IP is personal data and the only address allowed to reach real SSH, so i
 | | |
 |---|---|
 | Region | East US |
-| VM size | `Standard_B2ats_v2` (B1s/B2s were blocked on the new subscription) |
+| VM size | `Standard_B2ats_v2` for the run (B1s/B2s were blocked on the new subscription) |
+| Temporary build VM | `Standard_D2als_v6` (~$0.08/h, stopped when not in use) while the Basv2 vCPU quota request (0 → 4) is pending |
 | Infrastructure | **~$12.25/month** (24/7) |
 | Planned run | 1 month of data collection, then `terraform destroy` |
 | Expected total | **~$12–22** |
@@ -129,6 +111,7 @@ Microsoft Azure · Terraform (azurerm) · Ubuntu 24.04 · Docker · Cowrie · Az
 - [`tasks.md`](tasks.md): learning roadmap
 - [`docs/00-account-setup.md`](docs/00-account-setup.md): Milestone 0 notes
 - [`docs/01-cost-estimate.md`](docs/01-cost-estimate.md): cost estimate
+- [`docs/02-networking.md`](docs/02-networking.md): Milestones 1–2, network, NSG rules, VM and firewall tests
 
 ## Repository safety
 
