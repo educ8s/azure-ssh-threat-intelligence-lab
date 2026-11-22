@@ -13,7 +13,7 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 
 ## Progress
 
-**Overall:** `▓▓▓▓░░░░░░░░░░░░░░░░` **22%** (27 of 122 tasks) · last updated 20 Nov 2026
+**Overall:** `▓▓▓▓░░░░░░░░░░░░░░░░` **25%** (30 of 122 tasks) · last updated 22 Nov 2026
 
 | Phase | Milestone | Progress | Status |
 |---|---|---|---|
@@ -21,7 +21,7 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 | 1. Infrastructure | M1 Azure networking | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
 | | M2 Ubuntu VM deployment | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
 | | M3 Linux & network administration | `▓▓▓▓▓▓▓░░░` 67% | 🟡 In progress |
-| 2. Automation & honeypot | M4 Terraform | `░░░░░░░░░░` 0% | ⬜ |
+| 2. Automation & honeypot | M4 Terraform | `▓▓▓░░░░░░░` 33% | 🟡 In progress |
 | | M5 Docker fundamentals | `░░░░░░░░░░` 0% | ⬜ |
 | | M6 Cowrie SSH honeypot | `░░░░░░░░░░` 0% | ⬜ |
 | | M6.5 Decoy data (honeytokens) | `░░░░░░░░░░` 0% | ⬜ |
