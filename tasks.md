@@ -55,8 +55,8 @@
 
 ## Milestone 3: Linux and Network Administration
 
-- [ ] Inspect authentication logs.
-- [ ] Configure and test firewall rules.
+- [x] Inspect authentication logs.
+- [x] Configure and test firewall rules.
 - [ ] Troubleshoot deliberately broken network configurations.
 
 **Completion criteria:** Diagnose common Linux administration and network connectivity problems independently.
@@ -67,9 +67,9 @@
 
 ## Milestone 4: Terraform
 
-- [ ] Install Terraform.
-- [ ] Create `.gitignore` for state, `.tfvars` and `.terraform/` **before** the first `terraform apply`.
-- [ ] Recreate the Resource Group using Terraform.
+- [x] Install Terraform.
+- [x] Create `.gitignore` for state, `.tfvars` and `.terraform/` **before** the first `terraform apply`.
+- [x] Recreate the Resource Group using Terraform.
 - [ ] Recreate the VNet and subnet.
 - [ ] Recreate the NSG and security rules.
 - [ ] Recreate the public IP, NIC and VM.
