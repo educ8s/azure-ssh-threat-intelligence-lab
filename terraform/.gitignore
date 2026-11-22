@@ -1,0 +1,6 @@
+# Terraform - να μην ανέβουν ποτέ στο GitHub
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+*.pem
