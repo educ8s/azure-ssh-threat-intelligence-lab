@@ -13,14 +13,14 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 
 ## Progress
 
-**Overall:** `▓▓▓▓░░░░░░░░░░░░░░░░` **20%** (25 of 122 tasks) · last updated 20 Nov 2026
+**Overall:** `▓▓▓▓░░░░░░░░░░░░░░░░` **22%** (27 of 122 tasks) · last updated 20 Nov 2026
 
 | Phase | Milestone | Progress | Status |
 |---|---|---|---|
 | 0. Safety guardrails | M0 Account security & cost control | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
 | 1. Infrastructure | M1 Azure networking | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
 | | M2 Ubuntu VM deployment | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
-| | M3 Linux & network administration | `░░░░░░░░░░` 0% | 🟡 Next |
+| | M3 Linux & network administration | `▓▓▓▓▓▓▓░░░` 67% | 🟡 In progress |
 | 2. Automation & honeypot | M4 Terraform | `░░░░░░░░░░` 0% | ⬜ |
 | | M5 Docker fundamentals | `░░░░░░░░░░` 0% | ⬜ |
 | | M6 Cowrie SSH honeypot | `░░░░░░░░░░` 0% | ⬜ |
@@ -56,6 +56,7 @@ A portfolio project for my move into cybersecurity (target role: **SOC Analyst**
 
 - **Identity:** MFA on the Azure account (also required by Azure for CLI and IaC tools); SSH keys only for admin access
 - **Inbound:** port 22 open as bait; port 2222 limited to my current admin IP (see below)
+- **Host firewall:** `ufw` default-deny inbound, only 2222 allowed (second layer behind the NSG)
 - **Outbound:** default-deny NSG, so the VM can't be used to attack others (only Azure Monitor, Entra ID and HTTP/S for updates allowed)
 - **Isolation:** Cowrie runs in Docker as non-root; attacker commands never touch the real system
 - **Data:** no real secrets on the VM; decoy credentials are fake and traceable
