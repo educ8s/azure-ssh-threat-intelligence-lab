@@ -13,7 +13,7 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 
 ## Progress
 
-**Overall:** `▓▓▓▓░░░░░░░░░░░░░░░░` **25%** (31 of 122 tasks) · last updated 22 Nov 2026
+**Overall:** `▓▓▓▓▓░░░░░░░░░░░░░░░` **30%** (36 of 122 tasks) · last updated 23 Nov 2026
 
 | Phase | Milestone | Progress | Status |
 |---|---|---|---|
@@ -21,8 +21,8 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 | 1. Infrastructure | M1 Azure networking | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
 | | M2 Ubuntu VM deployment | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
 | | M3 Linux & network administration | `▓▓▓▓▓▓▓░░░` 67% | 🟡 In progress |
-| 2. Automation & honeypot | M4 Terraform | `▓▓▓▓░░░░░░` 44% | 🟡 In progress |
-| | M5 Docker fundamentals | `░░░░░░░░░░` 0% | ⬜ |
+| 2. Automation & honeypot | M4 Terraform | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| | M5 Docker fundamentals | `░░░░░░░░░░` 0% | 🟡 Next |
 | | M6 Cowrie SSH honeypot | `░░░░░░░░░░` 0% | ⬜ |
 | | M6.5 Decoy data (honeytokens) | `░░░░░░░░░░` 0% | ⬜ |
 | 3. Monitoring & SIEM | M7 Azure Monitor & Log Analytics | `░░░░░░░░░░` 0% | ⬜ |
@@ -52,7 +52,7 @@ A portfolio project for my move into cybersecurity (target role: **SOC Analyst**
 
 ---
 
-## Security design ()
+## Security design
 
 - **Identity:** MFA on the Azure account (also required by Azure for CLI and IaC tools); SSH keys only for admin access
 - **Inbound:** port 22 open as bait; port 2222 limited to my current admin IP (see below)
