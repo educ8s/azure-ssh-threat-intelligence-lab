@@ -52,7 +52,7 @@ A portfolio project for my move into cybersecurity (target role: **SOC Analyst**
 
 ---
 
-## Security design
+## Security design ()
 
 - **Identity:** MFA on the Azure account (also required by Azure for CLI and IaC tools); SSH keys only for admin access
 - **Inbound:** port 22 open as bait; port 2222 limited to my current admin IP (see below)
