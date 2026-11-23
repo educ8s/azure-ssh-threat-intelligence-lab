@@ -70,12 +70,12 @@
 - [x] Install Terraform.
 - [x] Create `.gitignore` for state, `.tfvars` and `.terraform/` **before** the first `terraform apply`.
 - [x] Recreate the Resource Group using Terraform.
-- [ ] Recreate the VNet and subnet.
-- [ ] Recreate the NSG and security rules.
-- [ ] Recreate the public IP, NIC and VM.
-- [ ] Organize configuration into separate `.tf` files.
-- [ ] Use variables and `.tfvars` files (including `admin_source_ips`).
-- [ ] Apply the tag plan to every resource with a shared `tags` block.
+- [x] Recreate the VNet and subnet.
+- [x] Recreate the NSG and security rules.
+- [x] Recreate the public IP, NIC and VM.
+- [x] Organize configuration into separate `.tf` files.
+- [x] Use variables and `.tfvars` files (including `admin_source_ips`).
+- [x] Apply the tag plan to every resource with a shared `tags` block.
 
 **Completion criteria:** Deploy and destroy the Azure infrastructure using Terraform.
 
