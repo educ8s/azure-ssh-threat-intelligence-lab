@@ -1,262 +1,119 @@
 # Azure SSH Honeypot & Cloud SIEM Lab
-## Cybersecurity Learning Roadmap
 
-**Goal:** Build a functional Azure SSH honeypot, integrate it with Microsoft Sentinel, and develop practical SOC Analyst skills.
+A deliberately exposed SSH honeypot in **Microsoft Azure**, built with **Terraform**. Bots and attackers find the public IP, try to log in and run commands. **Cowrie** (in Docker) records everything inside a fake shell. Logs flow through the **Azure Monitor Agent** into **Log Analytics**, where **Microsoft Sentinel** is used for KQL threat hunting, detection rules and incidents.
 
-**Approach:** Learn → Build → Break → Troubleshoot → Document.
+One `terraform apply` builds the lab. One `terraform destroy` removes it.
 
----
-
-# Phase 0 — Safety Guardrails
-
-## Milestone 0: Account Security and Cost Control
-
-- [x] Enable MFA on the Azure account.
-- [x] Create a budget with alerts at 50%, 80% and 100%.
-- [x] Define the tag plan: `Project`, `Owner`, `Environment`, `CostCenter`, `AutoDelete`.
-- [x] Choose the Azure region and confirm `Standard_B1s` / `Standard_B2s` availability there.
-- [x] Use the Azure Pricing Calculator to estimate VM, disk, public IP and log ingestion costs.
-- [x] Find your current public IP and decide on `admin_source_ips` (your IP as `/32`, and/or your Greek ISP prefixes).
-
-**Completion criteria:** The account is protected with MFA, spending is capped by alerts and you know roughly what the lab costs per month.
+![Status](https://img.shields.io/badge/status-in%20progress-yellow)
+![Azure](https://img.shields.io/badge/cloud-Azure-0078D4)
+![Terraform](https://img.shields.io/badge/IaC-Terraform-7B42BC)
+![Sentinel](https://img.shields.io/badge/SIEM-Microsoft%20Sentinel-0078D4)
 
 ---
 
-# Phase 1 — Infrastructure Fundamentals
+## Progress
 
-## Milestone 1: Azure Networking
+**Overall:** `▓▓▓▓▓▓▓▓▓░░░░░░░░░░░` **47%** (57 of 121 tasks) · last updated 24 Nov 2026
 
-- [x] Create an Azure account and understand the subscription structure.
-- [x] Create a Resource Group (`rg-honeypot-lab`).
-- [x] Create a Virtual Network (`10.0.0.0/16`).
-- [x] Create a subnet (`10.0.1.0/24`).
-- [x] Create a Network Security Group (NSG).
-- [x] Configure inbound security rules (2222 from `admin_source_ips` only; the 22-from-Any bait rule is added in Milestone 6 when Cowrie is running).
-- [x] Configure outbound security rules (allow `AzureMonitor`, `AzureActiveDirectory`, 80/443; deny 22, 23, 25, 445, 3389; deny all else).
-- [x] Test network connectivity and firewall behavior.
+| Phase | Milestone | Progress | Status |
+|---|---|---|---|
+| 0. Safety guardrails | M0 Account security & cost control | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| 1. Infrastructure | M1 Azure networking | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| | M2 Ubuntu VM deployment | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| | M3 Linux & network administration | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| 2. Automation & honeypot | M4 Terraform | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| | M5 Docker fundamentals | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| | M6 Cowrie SSH honeypot | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| | M6.5 Decoy data (honeytokens) | `▓▓▓▓▓▓▓▓▓░` 88% | ✅ Done |
+| 3. Monitoring & SIEM | M7 Azure Monitor & Log Analytics | `░░░░░░░░░░` 0% | 🟡 Next |
+| | M8 KQL | `░░░░░░░░░░` 0% | ⬜ |
+| | M9 Microsoft Sentinel | `░░░░░░░░░░` 0% | ⬜ |
+| 4. SOC skills | M10 Threat detection & MITRE ATT&CK | `░░░░░░░░░░` 0% | ⬜ |
+| | M11 SOC investigation report | `░░░░░░░░░░` 0% | ⬜ |
+| 5. Portfolio | M12 Final documentation | `░░░░░░░░░░` 0% | ⬜ |
 
-**Completion criteria:** Understand how network traffic reaches an Azure VM and how an NSG filters that traffic.
-
-## Milestone 2: Ubuntu VM Deployment
-
-- [x] Deploy Ubuntu Server 24.04 LTS.
-- [x] Select an appropriate VM size (e.g. Standard_B1s, subject to regional availability).
-- [x] Create an SSH key pair.
-- [x] Configure SSH key authentication.
-- [x] Assign a public IP address.
-- [x] Connect to the VM from your local computer.
-- [x] Move the real `sshd` to port 2222 (on Ubuntu 24.04, SSH uses `ssh.socket`: change the port there or disable socket activation, not only `sshd_config`).
-- [x] Confirm you can log in on port 2222 **before** closing your session on port 22.
-- [x] Disable password authentication and root login in `sshd_config`.
-- [x] Update Ubuntu packages.
-- [x] Install basic administration tools.
-
-**Completion criteria:** Successfully administer your Azure VM remotely using SSH keys.
-
-## Milestone 3: Linux and Network Administration
-
-- [x] Inspect authentication logs.
-- [x] Configure and test firewall rules.
-
-**Completion criteria:** Diagnose common Linux administration and network connectivity problems independently.
+Full checklist: [`tasks.md`](tasks.md)
 
 ---
 
-# Phase 2 — Infrastructure Automation and Honeypot
+## Why I'm building it
 
-## Milestone 4: Terraform
+A portfolio project for my move into cybersecurity (target role: **SOC Analyst**). It shows three skills that are hard to prove on a CV:
 
-- [x] Install Terraform.
-- [x] Create `.gitignore` for state, `.tfvars` and `.terraform/` **before** the first `terraform apply`.
-- [x] Recreate the Resource Group using Terraform.
-- [x] Recreate the VNet and subnet.
-- [x] Recreate the NSG and security rules.
-- [x] Recreate the public IP, NIC and VM.
-- [x] Organize configuration into separate `.tf` files.
-- [x] Use variables and `.tfvars` files (including `admin_source_ips`).
-- [x] Apply the tag plan to every resource with a shared `tags` block.
-
-**Completion criteria:** Deploy and destroy the Azure infrastructure using Terraform.
-
-## Milestone 5: Docker Fundamentals
-
-- [x] Install Docker.
-- [x] Run your first container.
-- [x] Create a custom Dockerfile.
-- [x] Use Docker Compose.
-- [x] Inspect container logs.
-- [x] Run containers as non-root users.
-- [x] Harden the Cowrie container (non-root, read-only where possible, resource limits).
-
-**Completion criteria:** Build, run, inspect and secure your own Docker container.
-
-## Milestone 6: Cowrie SSH Honeypot
-
-- [x] Deploy Cowrie using Docker.
-- [x] Configure the fake SSH environment.
-- [x] Connect to the honeypot using an SSH client.
-- [x] Generate test login attempts.
-- [x] Execute commands in the fake shell.
-- [x] Inspect Cowrie JSON logs.
-- [x] Customize the fake filesystem.
-
-**Completion criteria:** Operate a Cowrie honeypot and understand the events it records.
-
-## Milestone 6.5: Decoy Data (Honeytokens)
-
-- [x] Customize Cowrie's fake filesystem so it looks like a real, used server.
-- [x] Plant a believable `.bash_history`.
-- [x] Plant fake config files with fake credentials (e.g. `/var/www/.env`, `config.php`).
-- [ ] Plant fake SSH private keys in `/root/.ssh/`.
-- [x] Create fake AWS keys with Canarytokens.org and plant them.
-- [x] Use unique values per decoy so each one can be traced.
-- [x] Never use real credentials of any kind.
-- [x] Verify decoy file access appears in the Cowrie logs.
-
-**Completion criteria:** Attackers who explore the fake system find believable decoys, and any decoy that is read or used can be detected.
+- **Cloud:** designing and running real infrastructure in Azure
+- **Infrastructure as Code:** every resource defined and rebuilt from Terraform
+- **Security operations:** real attack data in a SIEM, KQL hunting, detections and an incident report
 
 ---
 
-# Phase 3 — Monitoring and SIEM
+## Architecture
 
-## Milestone 7: Azure Monitor and Log Analytics
-
-- [ ] Check current Log Analytics and Sentinel pricing and any free trial.
-- [ ] Create a Log Analytics Workspace.
-- [ ] Set log retention to match your budget.
-- [ ] Install AMA on the VM.
-- [ ] Configure a DCR.
-- [ ] Collect Linux system logs.
-- [ ] Configure Cowrie log ingestion.
-- [ ] Verify that logs arrive in Log Analytics.
-
-**Completion criteria:** Retrieve real Linux and honeypot events from Log Analytics.
-
-## Milestone 8: Kusto Query Language (KQL)
-
-- [ ] Query failed SSH authentication attempts.
-- [ ] Identify the most active source IP addresses.
-- [ ] Identify frequently attempted usernames.
-- [ ] Analyze attacker activity over time.
-- [ ] Build an attack timeline.
-- [ ] Save useful queries in the GitHub repository.
-
-**Completion criteria:** Write KQL queries that answer meaningful security questions using real honeypot data.
-
-## Milestone 9: Microsoft Sentinel
-
-- [ ] Connect Sentinel to your Log Analytics Workspace.
-- [ ] Create a brute-force detection rule.
-- [ ] Create a suspicious login detection rule.
-- [ ] Create a suspicious command execution detection rule.
-- [ ] Create a decoy access detection rule (attacker reads a honeytoken file).
-- [ ] Send Canarytokens alerts to your email (optionally into Sentinel).
-- [ ] Configure incident generation.
-- [ ] Investigate generated incidents.
-- [ ] Create a Sentinel workbook.
-- [ ] Visualize attacker IPs and activity.
-
-**Completion criteria:** Detect suspicious honeypot activity and generate incidents in Microsoft Sentinel.
+![Architecture](diagram.png)
 
 ---
 
-# Phase 4 — SOC Analyst Skills
+## Security design
 
-## Milestone 10: Threat Detection and MITRE ATT&CK
+- **Identity:** MFA on the Azure account (also required by Azure for CLI and IaC tools); SSH keys only for admin access
+- **Inbound:** port 22 open as bait; port 2222 limited to my current admin IP (see below)
+- **Host firewall:** `ufw` default-deny inbound, only 2222 allowed (second layer behind the NSG)
+- **Outbound:** default-deny NSG, so the VM can't be used to attack others (only Azure Monitor, Entra ID and HTTP/S for updates allowed)
+- **Isolation:** Cowrie runs in Docker as non-root; attacker commands never touch the real system
+- **Data:** no real secrets on the VM; decoy credentials are fake and traceable
 
-- [ ] Identify suspicious usernames and passwords.
-- [ ] Detect fake successful SSH logins.
-- [ ] Identify suspicious commands.
-- [ ] Investigate `wget` and `curl` activity.
-- [ ] Map observed behavior to relevant ATT&CK techniques.
-- [ ] Create at least three meaningful detection rules.
-- [ ] Test detections using controlled honeypot activity.
-- [ ] Document detection logic and expected results.
+### Admin access with a dynamic IP
 
-**Completion criteria:** Build and explain at least three working security detections based on observed behavior.
+Azure NSGs can't filter by country, only by IP ranges and service tags. My home connection has a dynamic IP, so:
 
-## Milestone 11: SOC Investigation
+- Port 2222 allows **only my current public IP as a `/32`**, held in the Terraform variable `admin_source_ips`
+- If my IP changes, I update the rule (portal, Azure CLI or `terraform apply`). It takes under a minute, and I can never be locked out, because the Azure portal doesn't depend on my IP
+- **Key-only SSH** on port 2222: `PasswordAuthentication no`, `PermitRootLogin no`
+- Optional second layer on the VM: `fail2ban`
 
-- [ ] Select an interesting honeypot session.
-- [ ] Identify the source IP address.
-- [ ] Enrich the IP with available threat intelligence.
-- [ ] Analyze authentication attempts.
-- [ ] Reconstruct the attack timeline.
-- [ ] Examine executed commands.
-- [ ] Investigate attempted downloads.
-- [ ] Identify possible attacker objectives.
-- [ ] Assess severity and potential impact.
-- [ ] Map observed activity to MITRE ATT&CK.
-- [ ] Document evidence and findings.
-- [ ] Recommend defensive actions.
-- [ ] Write a complete incident investigation report.
+```bash
+# From my own computer (not Cloud Shell, which would return Azure's IP)
+az network nsg rule update -g rg-honeypot-lab --nsg-name nsg-honeypot \
+  -n Allow-Admin-SSH-2222 --source-address-prefixes "$(curl -s ifconfig.me)/32"
+```
 
-**Completion criteria:** Produce a professional incident investigation report based on actual honeypot activity.
+### Keeping my IP out of the repo
 
----
+My home IP is personal data and the only address allowed to reach real SSH, so it's never committed:
 
-# Phase 5 — Portfolio Project
-
-## Milestone 12: Complete the GitHub Portfolio
-
-- [ ] Organize the GitHub repository (`terraform/`, `docker/`, `cowrie/`, `kql/`, `sentinel/`, `docs/`).
-- [ ] Keep milestone notes in `docs/`.
-- [ ] Add a repository description and topics on GitHub.
-- [ ] Write a comprehensive README.
-- [ ] Document the project objectives.
-- [ ] Create an architecture diagram.
-- [ ] Document Azure infrastructure.
-- [ ] Include Terraform configuration.
-- [ ] Include Docker configuration.
-- [ ] Include Cowrie configuration.
-- [ ] Include useful KQL queries.
-- [ ] Include Sentinel analytics rules.
-- [ ] Include screenshots of real detections and incidents.
-- [ ] Include the SOC investigation report.
-- [ ] Document security decisions and limitations.
-- [ ] Document deployment and teardown instructions.
-- [ ] Review the repository for secrets and sensitive information.
-- [ ] Publish final project findings.
-
-**Completion criteria:** Someone reviewing your GitHub repository can understand the architecture, reproduce the lab and evaluate your security analysis skills.
+- The real value lives in `terraform.tfvars`, which is in `.gitignore`
+- The repo has `terraform.tfvars.example` with a documentation placeholder (`203.0.113.10/32`)
+- Home IPs are blurred in screenshots
 
 ---
 
-# Recommended Daily Study Routine
+## Cost
 
-For approximately 90 minutes per day:
+| | |
+|---|---|
+| Region | East US |
+| VM size | `Standard_B2ats_v2` for the run (B1s/B2s were blocked on the new subscription) |
+| Temporary build VM | `Standard_D2als_v6` (~$0.08/h, stopped when not in use) while the Basv2 vCPU quota request (0 → 4) is pending |
+| Infrastructure | **~$12.25/month** (24/7) |
+| Planned run | 1 month of data collection, then `terraform destroy` |
+| Expected total | **~$12–22** |
+| Guardrails | Monthly budget with 50/80/100% and forecast alerts |
 
-| Activity | Time |
-|---|---:|
-| Learn theory and documentation | 20 min |
-| Hands-on exercises | 50 min |
-| Notes and documentation | 20 min |
+Details: [`docs/01-cost-estimate.md`](docs/01-cost-estimate.md)
 
-# Learning Principles
+---
 
-1. Don't blindly copy commands. Understand what each command does.
-2. Build everything yourself before asking AI to generate configurations.
-3. Break things deliberately and practice troubleshooting.
-4. Document mistakes and solutions.
-5. Don't move to the next milestone until you understand the current one.
-6. Keep Azure costs under control. Destroy resources when they are not needed.
-7. Prioritize a working, documented project over unnecessary complexity.
+## Tech stack
 
-# Final Objective
+Microsoft Azure · Terraform (azurerm) · Ubuntu 24.04 · Docker · Cowrie · Azure Monitor Agent · Data Collection Rules · Log Analytics · Microsoft Sentinel · KQL · Azure CLI
 
-By completing these milestones, you will have:
+## Documentation
 
-- Practical Linux administration experience.
-- Azure networking and infrastructure knowledge.
-- Infrastructure as Code experience with Terraform.
-- Containerization experience with Docker.
-- Hands-on honeypot experience with Cowrie.
-- Log collection and analysis experience.
-- KQL querying skills.
-- Microsoft Sentinel SIEM experience.
-- Security detection and incident investigation experience.
-- A documented cybersecurity portfolio project.
+- [`project_description.md`](project_description.md): full design
+- [`tasks.md`](tasks.md): learning roadmap
+- [`docs/00-account-setup.md`](docs/00-account-setup.md): Milestone 0 notes
+- [`docs/01-cost-estimate.md`](docs/01-cost-estimate.md): cost estimate
+- [`docs/02-networking.md`](docs/02-networking.md): Milestones 1–2, network, NSG rules, VM and firewall tests
 
-**First task: Complete Milestone 0 — Account Security and Cost Control.**
+## Repository safety
 
-Then move to Milestone 1: learn the fundamentals, build the network manually in Azure, test it and document what you learned before moving on to the VM.
+No secrets, keys, personal IP addresses, `.tfvars` or Terraform state are committed (`.gitignore` covers `*.tfvars`, `*.tfstate*` and `.terraform/`). The honeypot only observes; it never attacks back.
