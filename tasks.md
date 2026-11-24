@@ -121,14 +121,14 @@
 
 ## Milestone 7: Azure Monitor and Log Analytics
 
-- [ ] Check current Log Analytics and Sentinel pricing and any free trial.
-- [ ] Create a Log Analytics Workspace.
-- [ ] Set log retention to match your budget.
-- [ ] Install AMA on the VM.
-- [ ] Configure a DCR.
-- [ ] Collect Linux system logs.
-- [ ] Configure Cowrie log ingestion.
-- [ ] Verify that logs arrive in Log Analytics.
+- [x] Check current Log Analytics and Sentinel pricing and any free trial.
+- [x] Create a Log Analytics Workspace.
+- [x] Set log retention to match your budget.
+- [x] Install AMA on the VM.
+- [x] Configure a DCR.
+- [ ] Collect Linux system logs. *(syslog source — optional next; captures real SSH attempts on admin port 2222)*
+- [x] Configure Cowrie log ingestion.
+- [x] Verify that logs arrive in Log Analytics. *(confirmed 24 Nov — `Cowrie_CL` returning events end-to-end)*
 
 **Completion criteria:** Retrieve real Linux and honeypot events from Log Analytics.
 

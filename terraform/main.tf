@@ -181,3 +181,13 @@ resource "azurerm_linux_virtual_machine" "honeypot_vm" {
   }
 }
 
+resource "azurerm_log_analytics_workspace" "law" {
+  name                = "law-honeypot"
+  location            = azurerm_resource_group.honeypot.location
+  resource_group_name = azurerm_resource_group.honeypot.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+  tags                = azurerm_resource_group.honeypot.tags
+  daily_quota_gb = 1
+}
+
