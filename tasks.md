@@ -57,7 +57,6 @@
 
 - [x] Inspect authentication logs.
 - [x] Configure and test firewall rules.
-- [ ] Troubleshoot deliberately broken network configurations.
 
 **Completion criteria:** Diagnose common Linux administration and network connectivity problems independently.
 
@@ -81,38 +80,38 @@
 
 ## Milestone 5: Docker Fundamentals
 
-- [ ] Install Docker.
-- [ ] Run your first container.
-- [ ] Create a custom Dockerfile.
-- [ ] Use Docker Compose.
-- [ ] Inspect container logs.
-- [ ] Run containers as non-root users.
-- [ ] Harden the Cowrie container (non-root, read-only where possible, resource limits).
+- [x] Install Docker.
+- [x] Run your first container.
+- [x] Create a custom Dockerfile.
+- [x] Use Docker Compose.
+- [x] Inspect container logs.
+- [x] Run containers as non-root users.
+- [x] Harden the Cowrie container (non-root, read-only where possible, resource limits).
 
 **Completion criteria:** Build, run, inspect and secure your own Docker container.
 
 ## Milestone 6: Cowrie SSH Honeypot
 
-- [ ] Deploy Cowrie using Docker.
-- [ ] Configure the fake SSH environment.
-- [ ] Connect to the honeypot using an SSH client.
-- [ ] Generate test login attempts.
-- [ ] Execute commands in the fake shell.
-- [ ] Inspect Cowrie JSON logs.
-- [ ] Customize the fake filesystem.
+- [x] Deploy Cowrie using Docker.
+- [x] Configure the fake SSH environment.
+- [x] Connect to the honeypot using an SSH client.
+- [x] Generate test login attempts.
+- [x] Execute commands in the fake shell.
+- [x] Inspect Cowrie JSON logs.
+- [x] Customize the fake filesystem.
 
 **Completion criteria:** Operate a Cowrie honeypot and understand the events it records.
 
 ## Milestone 6.5: Decoy Data (Honeytokens)
 
-- [ ] Customize Cowrie's fake filesystem so it looks like a real, used server.
-- [ ] Plant a believable `.bash_history`.
-- [ ] Plant fake config files with fake credentials (e.g. `/var/www/.env`, `config.php`).
+- [x] Customize Cowrie's fake filesystem so it looks like a real, used server.
+- [x] Plant a believable `.bash_history`.
+- [x] Plant fake config files with fake credentials (e.g. `/var/www/.env`, `config.php`).
 - [ ] Plant fake SSH private keys in `/root/.ssh/`.
-- [ ] Create fake AWS keys with Canarytokens.org and plant them.
-- [ ] Use unique values per decoy so each one can be traced.
-- [ ] Never use real credentials of any kind.
-- [ ] Verify decoy file access appears in the Cowrie logs.
+- [x] Create fake AWS keys with Canarytokens.org and plant them.
+- [x] Use unique values per decoy so each one can be traced.
+- [x] Never use real credentials of any kind.
+- [x] Verify decoy file access appears in the Cowrie logs.
 
 **Completion criteria:** Attackers who explore the fake system find believable decoys, and any decoy that is read or used can be detected.
 
