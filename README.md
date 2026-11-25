@@ -108,11 +108,35 @@ Microsoft Azure · Terraform (azurerm) · Ubuntu 24.04 · Docker · Cowrie · Az
 
 ## Documentation
 
-- [`project_description.md`](project_description.md): full design
 - [`tasks.md`](tasks.md): learning roadmap
-- [`docs/00-account-setup.md`](docs/00-account-setup.md): Milestone 0 notes
+- [`docs/project-overview.md`](docs/project-overview.md): full design and architecture
+- [`docs/00-account-setup.md`](docs/00-account-setup.md): account setup and cost guardrails
 - [`docs/01-cost-estimate.md`](docs/01-cost-estimate.md): cost estimate
-- [`docs/02-networking.md`](docs/02-networking.md): Milestones 1–2, network, NSG rules, VM and firewall tests
+- [`docs/02-networking.md`](docs/02-networking.md): network design and deployment notes
+- [`docs/03-honeypot-docker.md`](docs/03-honeypot-docker.md): Cowrie and Docker notes
+- [`docs/04-monitoring-pipeline.md`](docs/04-monitoring-pipeline.md): AMA, DCR, Log Analytics, and Sentinel
+- [`docs/05-analysis-findings.md`](docs/05-analysis-findings.md): current observed findings and analysis gaps
+- [`docs/06-incident-report.md`](docs/06-incident-report.md): M11 investigation report template
+
+## Repository layout
+
+```text
+.
+├── README.md
+├── tasks.md
+├── terraform/       # Terraform source; local state and tfvars are ignored
+├── docker/          # Docker Compose configuration (not present yet)
+├── cowrie/          # Sanitized Cowrie configuration (not present yet)
+├── kql/             # Saved KQL queries
+├── sentinel/        # Exported Sentinel analytics rules (not present yet)
+├── docs/            # Setup, build, monitoring, and analysis documentation
+└── screenshots/     # Redacted evidence (not present yet)
+```
+
+The directories for configuration exports and screenshots are documented with
+their own README files until the corresponding sanitized project artifacts are
+added. The KQL directory currently contains a schema-discovery query; it does
+not assume unverified Cowrie column names.
 
 ## Repository safety
 

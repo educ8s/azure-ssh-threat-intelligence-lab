@@ -1,0 +1,5 @@
+// Purpose: Inspect the ingested Cowrie_CL schema before writing field-specific hunts.
+// Required columns: Cowrie_CL table.
+// Time window: Not applied; this returns table schema metadata, not event rows.
+Cowrie_CL
+| getschema

@@ -1,7 +1,8 @@
 # Milestone 0: Account Security and Cost Control
 
 > Date: 18 November 2026
-> Status: mostly done (Pricing Calculator estimate and admin IP still to do)
+> Status: Complete. The cost estimate is documented in
+> [`01-cost-estimate.md`](01-cost-estimate.md).
 
 Before building anything, I secured the account and put cost controls in place. This lab invites attackers in on purpose, so the account that controls it has to be the hardest thing in the whole setup to break into.
 
@@ -134,11 +135,11 @@ Applied to every resource:
 
 ---
 
-## Still to do
+## Sensitive local configuration
 
-- [ ] Pricing Calculator estimate: VM, 30 GB disk, Standard static public IP, ~1 GB/day Log Analytics, Sentinel trial check
-- [ ] Note my public IP as `x.x.x.x/32` for `admin_source_ips`
-- [ ] Update README: B1s/B2s → B2ats_v2
+The current admin IP is held only in the ignored local Terraform variables file.
+Do not copy it into this document, screenshots, or Git. The repository uses the
+`Standard_B2ats_v2` estimate documented in [`01-cost-estimate.md`](01-cost-estimate.md).
 
 ---
 

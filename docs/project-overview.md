@@ -1,7 +1,8 @@
 # Azure SSH Honeypot & Cloud SIEM Lab
 
 > Repository name: `azure-ssh-threat-intelligence-lab`
-> Status: **design complete, build in progress** (as of 17 November 2026)
+> Status: **in progress** (as of 25 November 2026); see the live checklist in
+> [`../tasks.md`](../tasks.md) for milestone status.
 
 ## Overview
 
@@ -135,14 +136,13 @@ Findings will be mapped to **MITRE ATT&CK**, for example:
 - **T1083** File and Directory Discovery
 - **T1552** Unsecured Credentials (with decoy data)
 
-## Planned enhancements
+## Remaining portfolio work
 
-- **Decoy data (honeytokens):** a believable fake filesystem in Cowrie (`.bash_history`, `.env` / config files with fake passwords, fake SSH keys) plus **Canarytokens** fake AWS keys that alert if an attacker tries to use them later
-- **Sentinel analytics rules** that raise incidents automatically
-- **One full incident investigation** written up SOC-style
-- **Optional automation:** enrich attacker IPs with threat intelligence or send notifications
-- **Optional log archive:** copy Cowrie logs to low-cost Blob storage (LRS, cool tier) before each destroy, to keep data across rebuilds
-- **Findings write-up** after running the lab for 2 to 4 weeks
+The roadmap tracks remaining work, including completing KQL hunts, adding
+Sentinel detections and exports, investigating a generated incident, and
+publishing a verified findings report. Current analysis notes are in
+[`05-analysis-findings.md`](05-analysis-findings.md); the M11 report template is
+[`06-incident-report.md`](06-incident-report.md).
 
 ## Tech stack
 
