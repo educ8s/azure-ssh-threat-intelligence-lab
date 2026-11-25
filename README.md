@@ -13,7 +13,7 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 
 ## Progress
 
-**Overall:** `▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░` **53%** (64 of 121 tasks) · last updated 24 Nov 2026
+**Overall:** `▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░` **58%** (70 of 121 tasks) · last updated 25 Nov 2026
 
 | Phase | Milestone | Progress | Status |
 |---|---|---|---|
@@ -26,8 +26,8 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 | | M6 Cowrie SSH honeypot | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
 | | M6.5 Decoy data (honeytokens) | `▓▓▓▓▓▓▓▓▓░` 88% | ✅ Done |
 | 3. Monitoring & SIEM | M7 Azure Monitor & Log Analytics | `▓▓▓▓▓▓▓▓▓░` 88% | ✅ Done |
-| | M8 KQL | `░░░░░░░░░░` 0% | 🟡 Next |
-| | M9 Microsoft Sentinel | `░░░░░░░░░░` 0% | ⬜ |
+| | M8 KQL | `▓▓▓▓▓░░░░░` 50% | 🟡 In progress |
+| | M9 Microsoft Sentinel | `▓▓▓░░░░░░░` 30% | 🟡 In progress |
 | 4. SOC skills | M10 Threat detection & MITRE ATT&CK | `░░░░░░░░░░` 0% | ⬜ |
 | | M11 SOC investigation report | `░░░░░░░░░░` 0% | ⬜ |
 | 5. Portfolio | M12 Final documentation | `░░░░░░░░░░` 0% | ⬜ |

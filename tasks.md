@@ -134,9 +134,9 @@
 
 ## Milestone 8: Kusto Query Language (KQL)
 
-- [ ] Query failed SSH authentication attempts.
-- [ ] Identify the most active source IP addresses.
-- [ ] Identify frequently attempted usernames.
+- [x] Query failed SSH authentication attempts.
+- [x] Identify the most active source IP addresses. *(found coordinated `109.160.32.0/24` subnet — 3 IPs, identical counts)*
+- [x] Identify frequently attempted usernames. *(also top passwords — `123456` leads; app-targeting users like `frappe`, `minecraft`)*
 - [ ] Analyze attacker activity over time.
 - [ ] Build an attack timeline.
 - [ ] Save useful queries in the GitHub repository.
@@ -145,13 +145,13 @@
 
 ## Milestone 9: Microsoft Sentinel
 
-- [ ] Connect Sentinel to your Log Analytics Workspace.
-- [ ] Create a brute-force detection rule.
+- [x] Connect Sentinel to your Log Analytics Workspace. *(onboarded to the unified Defender portal)*
+- [x] Create a brute-force detection rule. *(scheduled rule, >20 failed logins/IP/hr, IP entity mapped, MITRE T1110)*
 - [ ] Create a suspicious login detection rule.
 - [ ] Create a suspicious command execution detection rule.
 - [ ] Create a decoy access detection rule (attacker reads a honeytoken file).
 - [ ] Send Canarytokens alerts to your email (optionally into Sentinel).
-- [ ] Configure incident generation.
+- [x] Configure incident generation.
 - [ ] Investigate generated incidents.
 - [ ] Create a Sentinel workbook.
 - [ ] Visualize attacker IPs and activity.
