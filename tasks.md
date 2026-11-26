@@ -139,7 +139,7 @@
 - [x] Identify frequently attempted usernames. *(also top passwords — `123456` leads; app-targeting users like `frappe`, `minecraft`)*
 - [ ] Analyze attacker activity over time.
 - [ ] Build an attack timeline.
-- [ ] Save useful queries in the GitHub repository.
+- [x] Save useful queries in the GitHub repository. *(kql/cowrie-hunting-queries.kql + ANALYSIS.md write-up)*
 
 **Completion criteria:** Write KQL queries that answer meaningful security questions using real honeypot data.
 
@@ -177,19 +177,19 @@
 
 ## Milestone 11: SOC Investigation
 
-- [ ] Select an interesting honeypot session.
-- [ ] Identify the source IP address.
-- [ ] Enrich the IP with available threat intelligence.
-- [ ] Analyze authentication attempts.
-- [ ] Reconstruct the attack timeline.
-- [ ] Examine executed commands.
-- [ ] Investigate attempted downloads.
-- [ ] Identify possible attacker objectives.
-- [ ] Assess severity and potential impact.
-- [ ] Map observed activity to MITRE ATT&CK.
-- [ ] Document evidence and findings.
-- [ ] Recommend defensive actions.
-- [ ] Write a complete incident investigation report.
+- [x] Select an interesting honeypot session.
+- [x] Identify the source IP address.
+- [x] Enrich the IP with available threat intelligence. *(confirmed Tor exit, AS215125)*
+- [x] Analyze authentication attempts.
+- [x] Reconstruct the attack timeline.
+- [x] Examine executed commands.
+- [x] Investigate attempted downloads.
+- [x] Identify possible attacker objectives.
+- [x] Assess severity and potential impact.
+- [x] Map observed activity to MITRE ATT&CK.
+- [x] Document evidence and findings.
+- [x] Recommend defensive actions.
+- [x] Write a complete incident investigation report. *(INCIDENT-REPORT.md — 192.42.116.98)*
 
 **Completion criteria:** Produce a professional incident investigation report based on actual honeypot activity.
 
