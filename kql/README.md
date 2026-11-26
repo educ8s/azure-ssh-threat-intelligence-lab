@@ -1,6 +1,6 @@
 # KQL Hunting Queries — Cowrie Honeypot
 
-Queries for the `Cowrie_CL` custom log table (SSH honeypot events) in Microsoft Sentinel / Log Analytics. Each includes its purpose and, where relevant, the mapped MITRE ATT&CK technique. The raw `.kql` is in [`cowrie-hunting-queries.kql`](cowrie-hunting-queries.kql); findings are written up in [`../ANALYSIS.md`](../ANALYSIS.md).
+Queries for the `Cowrie_CL` custom log table (SSH honeypot events) in Microsoft Sentinel / Log Analytics. Each includes its purpose and, where relevant, the mapped MITRE ATT&CK technique. Findings are written up in [`../ANALYSIS.md`](../ANALYSIS.md).
 
 ---
 
