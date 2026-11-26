@@ -11,9 +11,17 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 
 ---
 
+## 📊 Threat Analysis
+
+**→ [Read the full threat analysis](ANALYSIS.md)**
+
+Findings from live attacker traffic, each with the KQL query and a screenshot: a rotating multi-subnet brute-force botnet (fixed 1287-attempt wordlist per IP), the most-tried passwords and usernames, confirmed decoy-credential intrusions, malware-delivery attempts, attacker objectives (cryptomining, router and GSM-modem targeting, messenger theft), and observed honeypot-evasion.
+
+---
+
 ## Progress
 
-**Overall:** `▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░` **58%** (70 of 121 tasks) · last updated 25 Nov 2026
+**Overall:** `▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░` **59%** (71 of 121 tasks) · last updated 26 Nov 2026
 
 | Phase | Milestone | Progress | Status |
 |---|---|---|---|
@@ -26,7 +34,7 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 | | M6 Cowrie SSH honeypot | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
 | | M6.5 Decoy data (honeytokens) | `▓▓▓▓▓▓▓▓▓░` 88% | ✅ Done |
 | 3. Monitoring & SIEM | M7 Azure Monitor & Log Analytics | `▓▓▓▓▓▓▓▓▓░` 88% | ✅ Done |
-| | M8 KQL | `▓▓▓▓▓░░░░░` 50% | 🟡 In progress |
+| | M8 KQL | `▓▓▓▓▓▓▓░░░` 67% | 🟡 In progress |
 | | M9 Microsoft Sentinel | `▓▓▓░░░░░░░` 30% | 🟡 In progress |
 | 4. SOC skills | M10 Threat detection & MITRE ATT&CK | `░░░░░░░░░░` 0% | ⬜ |
 | | M11 SOC investigation report | `░░░░░░░░░░` 0% | ⬜ |
@@ -108,35 +116,11 @@ Microsoft Azure · Terraform (azurerm) · Ubuntu 24.04 · Docker · Cowrie · Az
 
 ## Documentation
 
+- [`project_description.md`](project_description.md): full design
 - [`tasks.md`](tasks.md): learning roadmap
-- [`docs/project-overview.md`](docs/project-overview.md): full design and architecture
-- [`docs/00-account-setup.md`](docs/00-account-setup.md): account setup and cost guardrails
+- [`docs/00-account-setup.md`](docs/00-account-setup.md): Milestone 0 notes
 - [`docs/01-cost-estimate.md`](docs/01-cost-estimate.md): cost estimate
-- [`docs/02-networking.md`](docs/02-networking.md): network design and deployment notes
-- [`docs/03-honeypot-docker.md`](docs/03-honeypot-docker.md): Cowrie and Docker notes
-- [`docs/04-monitoring-pipeline.md`](docs/04-monitoring-pipeline.md): AMA, DCR, Log Analytics, and Sentinel
-- [`docs/05-analysis-findings.md`](docs/05-analysis-findings.md): current observed findings and analysis gaps
-- [`docs/06-incident-report.md`](docs/06-incident-report.md): M11 investigation report template
-
-## Repository layout
-
-```text
-.
-├── README.md
-├── tasks.md
-├── terraform/       # Terraform source; local state and tfvars are ignored
-├── docker/          # Docker Compose configuration (not present yet)
-├── cowrie/          # Sanitized Cowrie configuration (not present yet)
-├── kql/             # Saved KQL queries
-├── sentinel/        # Exported Sentinel analytics rules (not present yet)
-├── docs/            # Setup, build, monitoring, and analysis documentation
-└── screenshots/     # Redacted evidence
-```
-
-The directories for configuration exports and screenshots are documented with
-their own README files until the corresponding sanitized project artifacts are
-added. The KQL directory currently contains a schema-discovery query; it does
-not assume unverified Cowrie column names.
+- [`docs/02-networking.md`](docs/02-networking.md): Milestones 1–2, network, NSG rules, VM and firewall tests
 
 ## Repository safety
 
