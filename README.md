@@ -17,11 +17,15 @@ One `terraform apply` builds the lab. One `terraform destroy` removes it.
 
 Findings from live attacker traffic, each with the KQL query and a screenshot: a rotating multi-subnet brute-force botnet (fixed 1287-attempt wordlist per IP), the most-tried passwords and usernames, confirmed decoy-credential intrusions, malware-delivery attempts, attacker objectives (cryptomining, router and GSM-modem targeting, messenger theft), and observed honeypot-evasion.
 
+**→ [Read a full incident investigation](INCIDENT-REPORT.md)**
+
+A single Tor-anonymized session taken from detection to verdict: timeline, indicators of compromise, verified threat-intel enrichment, MITRE ATT&CK mapping, severity assessment, and defensive recommendations.
+
 ---
 
 ## Progress
 
-**Overall:** `▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░` **59%** (71 of 121 tasks) · last updated 26 Nov 2026
+**Overall:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░` **69%** (84 of 121 tasks) · last updated 26 Nov 2026
 
 | Phase | Milestone | Progress | Status |
 |---|---|---|---|
@@ -37,7 +41,7 @@ Findings from live attacker traffic, each with the KQL query and a screenshot: a
 | | M8 KQL | `▓▓▓▓▓▓▓░░░` 67% | 🟡 In progress |
 | | M9 Microsoft Sentinel | `▓▓▓░░░░░░░` 30% | 🟡 In progress |
 | 4. SOC skills | M10 Threat detection & MITRE ATT&CK | `░░░░░░░░░░` 0% | ⬜ |
-| | M11 SOC investigation report | `░░░░░░░░░░` 0% | ⬜ |
+| | M11 SOC investigation report | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
 | 5. Portfolio | M12 Final documentation | `░░░░░░░░░░` 0% | ⬜ |
 
 Full checklist: [`tasks.md`](tasks.md)
