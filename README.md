@@ -130,7 +130,7 @@ Microsoft Azure · Terraform (azurerm) · Ubuntu 24.04 · Docker · Cowrie · Az
 ├── kql/             # Saved KQL queries
 ├── sentinel/        # Exported Sentinel analytics rules (not present yet)
 ├── docs/            # Setup, build, monitoring, and analysis documentation
-└── screenshots/     # Redacted evidence (not present yet)
+└── screenshots/     # Redacted evidence
 ```
 
 The directories for configuration exports and screenshots are documented with
