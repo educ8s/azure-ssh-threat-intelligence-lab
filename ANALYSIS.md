@@ -158,6 +158,23 @@ Cowrie_CL
 
 ---
 
+## 9. Attacks over time
+
+Bucketing connections into hourly windows shows the rhythm of the campaign.
+
+```kql
+Cowrie_CL
+| where eventid == "cowrie.session.connect"
+| summarize attacks = count() by bin(TimeGenerated, 1h)
+| render timechart
+```
+
+![Attacks over time](screenshots/attacks_over_time.png)
+
+**Finding.** The volume is bursty rather than steady: a quiet background near zero, punctuated by sharp spikes of 700 to 970 connections per hour, with large peaks recurring roughly daily. A human attacker could not sustain or shape this pattern; the burstiness is the signature of automated campaigns locking on, running a full wordlist pass, then moving on. The recurring daily peaks align with the rotating-subnet campaign cycling through fresh IPs.
+
+---
+
 ## Summary
 
 Over roughly four days the honeypot recorded attacks from hundreds of unique IPs and surfaced:

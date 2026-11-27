@@ -1,6 +1,6 @@
-# KQL Hunting Queries — Cowrie Honeypot
+# KQL Hunting Queries: Cowrie Honeypot
 
-Queries for the `Cowrie_CL` custom log table (SSH honeypot events) in Microsoft Sentinel / Log Analytics. Each includes its purpose and, where relevant, the mapped MITRE ATT&CK technique. Findings are written up in [`../ANALYSIS.md`](../ANALYSIS.md).
+Queries for the `Cowrie_CL` custom log table (SSH honeypot events) in Microsoft Sentinel / Log Analytics. Each includes its purpose and, where relevant, the mapped MITRE ATT&CK technique. The raw `.kql` is in [`cowrie-hunting-queries.kql`](cowrie-hunting-queries.kql); findings are written up in [`../ANALYSIS.md`](../ANALYSIS.md).
 
 ---
 
@@ -43,7 +43,7 @@ Cowrie_CL
 
 ## 4. Brute-force detection
 
-Any single IP with more than 20 failed logins in the window, with first and last seen times. Basis for the Sentinel analytics rule. **MITRE ATT&CK T1110 — Brute Force.**
+Any single IP with more than 20 failed logins in the window, with first and last seen times. Basis for the Sentinel analytics rule. MITRE ATT&CK T1110: Brute Force.
 
 ```kql
 Cowrie_CL
@@ -52,9 +52,9 @@ Cowrie_CL
 | where FailedAttempts > 20
 ```
 
-## 5. Successful logins — decoy credential used
+## 5. Successful logins: decoy credential used
 
-Successful authentications on the decoy, excluding own test traffic (localhost / Docker gateway). **MITRE ATT&CK T1078 — Valid Accounts.**
+Successful authentications on the decoy, excluding own test traffic (localhost / Docker gateway). MITRE ATT&CK T1078: Valid Accounts.
 
 ```kql
 Cowrie_CL
@@ -64,9 +64,9 @@ Cowrie_CL
 | sort by TimeGenerated desc
 ```
 
-## 6. Malware delivery — file download / upload attempts
+## 6. Malware delivery: file download / upload attempts
 
-Captured files fire `file_download` / `file_upload`; the command branch catches `wget`/`curl`/`tftp`/`scp` staging attempts. **MITRE ATT&CK T1105 — Ingress Tool Transfer.**
+Captured files fire `file_download` / `file_upload`; the command branch catches `wget`/`curl`/`tftp`/`scp` staging attempts. MITRE ATT&CK T1105: Ingress Tool Transfer.
 
 ```kql
 Cowrie_CL
@@ -76,7 +76,7 @@ Cowrie_CL
 | sort by TimeGenerated desc
 ```
 
-## 7. Post-login behaviour — most common commands
+## 7. Post-login behaviour: most common commands
 
 Extracts the command from each `command.input` event and ranks by frequency. Use to profile recon, evasion probes, and payload staging.
 
@@ -99,4 +99,38 @@ Cowrie_CL
 | extend hassh = extract(@"fingerprint: (\w+)", 1, message)
 | summarize distinct_IPs = dcount(src_ip), attempts = count() by hassh
 | sort by distinct_IPs desc
+```
+
+## 9. Attacks over time
+
+Buckets connections into hourly windows to reveal campaign bursts versus quiet periods. The bursty shape confirms automated, not manual, activity.
+
+```kql
+Cowrie_CL
+| where eventid == "cowrie.session.connect"
+| summarize attacks = count() by bin(TimeGenerated, 1h)
+| render timechart
+```
+
+## 10. Failed vs successful logins over time
+
+Overlays failed and successful authentications so breach moments stand out against the brute-force baseline.
+
+```kql
+Cowrie_CL
+| where eventid in ("cowrie.login.failed", "cowrie.login.success")
+| summarize count() by eventid, bin(TimeGenerated, 1h)
+| render timechart
+```
+
+## 11. Decoy / honeytoken access
+
+Looks for attackers reading planted credential files. What attackers did not do is itself a finding: mass SSH bots pursue compute and devices, not cloud-credential theft.
+
+```kql
+Cowrie_CL
+| where eventid == "cowrie.command.input"
+| where message has_any (".env", "credentials", ".aws", "id_rsa", "config.php", ".bash_history", "aws_access_key")
+| project TimeGenerated, src_ip, message
+| sort by TimeGenerated desc
 ```

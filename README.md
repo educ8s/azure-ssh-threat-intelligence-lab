@@ -25,7 +25,7 @@ A single Tor-anonymized session taken from detection to verdict: timeline, indic
 
 ## Progress
 
-**Overall:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░` **69%** (84 of 121 tasks) · last updated 26 Nov 2026
+**Overall:** `▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░` **72%** (87 of 121 tasks) · last updated 27 Nov 2026
 
 | Phase | Milestone | Progress | Status |
 |---|---|---|---|
@@ -38,8 +38,8 @@ A single Tor-anonymized session taken from detection to verdict: timeline, indic
 | | M6 Cowrie SSH honeypot | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
 | | M6.5 Decoy data (honeytokens) | `▓▓▓▓▓▓▓▓▓░` 88% | ✅ Done |
 | 3. Monitoring & SIEM | M7 Azure Monitor & Log Analytics | `▓▓▓▓▓▓▓▓▓░` 88% | ✅ Done |
-| | M8 KQL | `▓▓▓▓▓▓▓░░░` 67% | 🟡 In progress |
-| | M9 Microsoft Sentinel | `▓▓▓░░░░░░░` 30% | 🟡 In progress |
+| | M8 KQL | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
+| | M9 Microsoft Sentinel | `▓▓▓▓░░░░░░` 40% | 🟡 In progress |
 | 4. SOC skills | M10 Threat detection & MITRE ATT&CK | `░░░░░░░░░░` 0% | ⬜ |
 | | M11 SOC investigation report | `▓▓▓▓▓▓▓▓▓▓` 100% | ✅ Done |
 | 5. Portfolio | M12 Final documentation | `░░░░░░░░░░` 0% | ⬜ |

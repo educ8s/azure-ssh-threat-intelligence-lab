@@ -137,8 +137,8 @@
 - [x] Query failed SSH authentication attempts.
 - [x] Identify the most active source IP addresses. *(found coordinated `109.160.32.0/24` subnet — 3 IPs, identical counts)*
 - [x] Identify frequently attempted usernames. *(also top passwords — `123456` leads; app-targeting users like `frappe`, `minecraft`)*
-- [ ] Analyze attacker activity over time.
-- [ ] Build an attack timeline.
+- [x] Analyze attacker activity over time. *(hourly timechart — bursty, automated-campaign pattern)*
+- [x] Build an attack timeline.
 - [x] Save useful queries in the GitHub repository. *(kql/cowrie-hunting-queries.kql + ANALYSIS.md write-up)*
 
 **Completion criteria:** Write KQL queries that answer meaningful security questions using real honeypot data.
@@ -152,7 +152,7 @@
 - [ ] Create a decoy access detection rule (attacker reads a honeytoken file).
 - [ ] Send Canarytokens alerts to your email (optionally into Sentinel).
 - [x] Configure incident generation.
-- [ ] Investigate generated incidents.
+- [x] Investigate generated incidents. *(Case 20 triaged to closure — True Positive, 4 IPs correlated across AS47890/AS13489/AS48090 + the 109.160.32.0/24 campaign)*
 - [ ] Create a Sentinel workbook.
 - [ ] Visualize attacker IPs and activity.
 
